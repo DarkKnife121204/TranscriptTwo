@@ -6,6 +6,8 @@ from config import Max_File_Size_MB, Max_Duration_Minutes
 
 from services.file import convert_file
 from services.transcriber import transcribe
+from services.storage import save_transcript
+from handlers.prompt import get_format_keyboard
 
 Supported_types ={
     "audio/mpeg",
@@ -54,6 +56,8 @@ async def media_handler(message: Message):
 
         if text.strip():
             await message.answer(text)
+            save_transcript(message.from_user.id, text)
+            await message.answer("Выберите формат:", reply_markup=get_format_keyboard())
         else:
             await message.answer("Не удалось распознать речь.")
     except Exception as e:

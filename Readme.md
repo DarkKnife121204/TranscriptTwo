@@ -1,4 +1,4 @@
-# TranscriptOne — Telegram бот для расшифровки аудио и видео
+# TranscriptTwo — Telegram бот для расшифровки аудио и видео
 
 ---
 
@@ -11,18 +11,24 @@
 - Офлайн работа через `openai-whisper`
 - Docker
 - Подсчёт примерного времени обработки
+- предлагает пользователю выбрать формат постобработки:
+- Техническое задание
+- Задача
+- Протокол совещания
+- и отправляет результат, преобразованный с помощью GPT.
 
 ---
 
 ## Установка и запуск
 
 Токен Telegram-бота указывается в файле `config.py` в переменной `Token`.
+Токен OpenAI указывается в файле `config.py` в переменной `OPENAI_API_KEY`
 
 Перед установкой и запуском требуется запущенный Docker
 
 ```bash
-git clone https://github.com/yourusername/transcriber-bot.git
-cd transcriber-bot
-docker build -t transcriber-bot .
-docker run --name transcriber-bot-container transcriber-bot
+git clone https://github.com/DarkKnife121204/TranscriptTwo
+cd TranscriptTwo
+docker build -t transcript-two .
+docker run --name transcript-bot transcript-two
 ```

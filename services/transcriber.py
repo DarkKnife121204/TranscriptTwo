@@ -1,8 +1,9 @@
 import whisper
 import asyncio
 from handlers.language import user_languages
+from config import Model_Transcriber
 
-model = whisper.load_model("medium")
+model = whisper.load_model(Model_Transcriber)
 
 
 def _transcribe_sync(model, path_to_wav, language):
