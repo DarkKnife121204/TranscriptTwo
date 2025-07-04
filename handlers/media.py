@@ -3,13 +3,14 @@ import logging
 from aiogram import Router, F
 from aiogram.types import Message
 from config import Max_File_Size_MB, Max_Duration_Minutes
+from config import Model_Transcriber
 
 from services.file import convert_file
 from services.transcriber import transcribe
 from services.storage import save_transcript
 from handlers.prompt import get_format_keyboard
 
-Supported_types ={
+Supported_types = {
     "audio/mpeg",
     "audio/x-wav",
     "audio/wav",
@@ -18,6 +19,12 @@ Supported_types ={
     "video/mp4",
     "video/quicktime",
     "video/x-msvideo"
+}
+
+Model_speeds = {
+    "base": 1.0,
+    "medium": 0.7,
+    "large": 0.5
 }
 
 media_route = Router()
@@ -42,8 +49,10 @@ async def media_handler(message: Message):
     await message.answer("Файл получен. Начинаю обработку...")
     logging.info(f"[{message.from_user.id}] Загружен файл: {file.file_id}")
 
-    await message.answer(f"Примерное время обработки: {file.duration:} сек.")
-    logging.info(f"[{message.from_user.id}] Примерное время обработки: {file.duration:} сек.")
+    speed = speed = Model_speeds.get(Model_Transcriber, 1.0)
+    estimated = round(file.duration / speed)
+    await message.answer(f"Примерное время обработки: ~{estimated} сек.")
+    logging.info(f"[{message.from_user.id}] Примерное время обработки: {estimated} сек.")
 
     try:
         logging.info(f"[{message.from_user.id}] Извлечение звука из файла начато")
