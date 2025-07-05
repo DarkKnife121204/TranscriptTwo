@@ -1,4 +1,4 @@
-Token = '8130927700:AAHPcB3GUtPiD5aHcgc_lTl2mxQFPJEUuqE'
+Token = ''
 TEMP_DIR = 'temp'
 Model_Transcriber = 'medium'
 Max_File_Size_MB = 500
